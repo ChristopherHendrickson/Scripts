@@ -4,30 +4,38 @@ from math import floor
 
 
 def simulate_game():
+    #This function simlulates a game where a player must predict the outcome of four cards being played to se ewhich are more likely
+    #There are four questions:
+    #   Black or red? Is the card black or red
+    #   High or low? Is the card higher or lower than the previous (getting the same value is a loss)
+    #   in or out? Is value of the card inbetween the two rpevious cards or not (getting the same value as either of the previous is a loss)
+    #   Same or different? Is the suit of the card the same or different to the three previous cards
+
+    #The function builds a string that matches one of the keys in the answers dictionary, and then adds one to the keys value.
     cards = cards_club+cards_spade+cards_diamond+cards_heart
     while len(cards)>=4:
 
-        current_stack = []
-        current_str = ''
+        card_stack = []
+        key_string = ''
         for i in range(4):
             pop_index = floor(random()*(len(cards)-1))
-            current_stack.append(cards.pop(pop_index))
+            card_stack.append(cards.pop(pop_index))
             if i == 0:
-                current_str+=black_or_red(current_stack)
+                key_string+=black_or_red(card_stack)
             if i == 1:
-                current_str+=high_or_low(current_stack)
-                if current_str[i] == 'F':
-                    current_str = 'fail'
+                key_string+=high_or_low(card_stack)
+                if key_string[i] == 'F':
+                    key_string = 'fail'
                     break
 
             if i == 2:
-                current_str+=in_or_out(current_stack)
-                if current_str[i] == 'F':
-                    current_str = 'fail'
+                key_string+=in_or_out(card_stack)
+                if key_string[i] == 'F':
+                    key_string = 'fail'
                     break
             if i == 3:
-                current_str+=same_or_diff(current_stack)
-        answers[current_str]+=1
+                key_string+=same_or_diff(card_stack)
+        results[key_string]+=1
 
 
 def black_or_red(stack):
@@ -36,7 +44,7 @@ def black_or_red(stack):
     return 'B'
 
 def high_or_low(stack):
-    if stack[0]==stack[1]:
+    if stack[0]%100==stack[1]%100:
         return 'F'
     elif stack[0]%100 >stack[1]%100:
         return 'L'
@@ -49,13 +57,10 @@ def in_or_out(stack):
     current = stack[2]%100
 
     if highest == lowest or highest == current or current == lowest:
-        # print(str(current) + ' ' + str(lowest) + ' ' + str(highest) + ' FAIL')
         return 'F'
     elif current < lowest or current > highest:
-        # print(str(current) + ' ' + str(lowest) + ' ' + str(highest) + ' OUTSIDE')
         return 'O'
     else:
-        # print(str(current) + ' ' + str(lowest) + ' ' + str(highest) + ' INSIDE')
         return 'I'
 
 def same_or_diff(stack):
@@ -66,14 +71,19 @@ def same_or_diff(stack):
         return 'S'
     return 'D'
 
+
+#Cards values are represetned by numbers 1-13. Suits are represented by the hundreths of the value
+#Clubs = 1-13. Spades = 101-113 etc
+#Comparisons between the card suits can then be made by rounding to the nearest one-hundred
+#Comparisons between the card values can then be made by taking the modulus of 100
 cards_club = [i+1 for i in range(13)]
 cards_spade = [i+101 for i in range(13)]
 cards_diamond = [i+201 for i in range(13)]
 cards_heart = [i+301 for i in range(13)]
 
 
-
-answers = {
+#Initial dictionary to count the times each outcome occurs
+results = {
     'RHIS':0,
     'RHID':0,
     'RHOS':0,
@@ -101,7 +111,11 @@ total = 0
 
 for i in range(num_sims):
     simulate_game() 
-for key in answers.keys():
-    total+=answers[key]
-for key in answers.keys():
-    print("{key}: {answer}%".format(key=key,answer=round(answers[key]/total*100,1)))
+
+#Count the total number of results to calculate percentages
+for key in results.keys():
+    total+=results[key]
+
+#Print results
+for key in results.keys():
+    print("{key}: {answer}%".format(key=key,answer=round(results[key]/total*100,1)))
