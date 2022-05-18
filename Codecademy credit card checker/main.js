@@ -1,3 +1,13 @@
+/*
+Codecademy Extract:
+
+Project Goals
+Context: The company that you work for suspects that credit card distributors have been mailing out cards that have invalid numbers. 
+In this project, you have the role of a clerk who checks if credit cards are valid.
+
+
+*/
+
 // All valid credit card numbers
 const valid1 = [4, 5, 3, 9, 6, 7, 7, 9, 0, 8, 0, 1, 6, 8, 0, 8]
 const valid2 = [5, 5, 3, 5, 7, 6, 6, 7, 6, 8, 7, 5, 1, 4, 3, 9]
@@ -25,10 +35,59 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 // Add your functions below:
 
+function validateCred(cred) {
+    //using Luhn algorithm
+    let sum = 0
+    for (let i=cred.length-1;i>=0;i--)  {
+        doubler = ((-1)**(cred.length-i)+1)/2 //This is equal to 1 every second iteration, otherwise it is 0
+        val = cred[i]+doubler*cred[i]
+        if (val>9){
+            val = val-9
+        }
+
+        sum+=val
+    }
+    return sum%10==0
+}
 
 
+function findInvalidCards(cards) {
+    //Given a list of credit cards, returns a new list of those cards that are invalid
+    let invalidCards = []
+    for (let i = 0;i<cards.length;i++) {
+        if (!validateCred(cards[i])){
+            invalidCards.push(cards[i])
+        }
+    }
+    return invalidCards
+}
+
+function idInvalidCardCompanies(cards) {
+    //Returns a list of companies that have invlaid cards. Company determined by first digit of card
+    let invalidCompanies = []
+    let firstDigits = {
+        3:"Amex (American Express)",
+        4:"Visa",
+        5:"Mastercard",
+        6:"Discover",};
+    
+    invalidCards = findInvalidCards(cards)
+
+    invalidCards.forEach(invalidCard => {
+        let firstCardDigit = invalidCard[0].toString()
+
+        if (firstCardDigit in firstDigits) {
+            invalidCompanies.push(firstDigits[firstCardDigit]);
+            delete firstDigits[firstCardDigit];
+        } else {
+            console.log('company not found');
+        }
+
+    }); 
+    return invalidCompanies 
+}
 
 
-
+console.log(idInvalidCardCompanies(batch))
 
 
