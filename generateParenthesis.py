@@ -46,5 +46,5 @@ def generateParenthesis(n):
 
 
 
-#print(generateParenthesis(6))
-print(possibles(4))
+print(generateParenthesis(6))
+
