@@ -23,7 +23,6 @@ class HashMap:
       self.array[array_index] = [key, value]
       return
 
-    # Collision!
 
     number_collisions = 1
 
@@ -71,8 +70,7 @@ class HashMap:
           
       
 
-          
-    # possible_return_value holds different key
+
 
 
 

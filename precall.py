@@ -64,9 +64,7 @@ def in_or_out(stack):
         return 'I'
 
 def same_or_diff(stack):
-    suits_in_stack = []
-    for i in range(len(stack)-1):
-        suits_in_stack.append(round(stack[i]/100,0))
+    suits_in_stack = [round(stack[i]/100,0) for i in range(len(stack)-1)]
     if round(stack[3]/100,0) in suits_in_stack:
         return 'S'
     return 'D'
@@ -113,8 +111,8 @@ for i in range(num_sims):
     simulate_game() 
 
 #Count the total number of results to calculate percentages
-for key in results.keys():
-    total+=results[key]
+for i in results.values():
+    total+=i
 
 #Print results
 for key in results.keys():
