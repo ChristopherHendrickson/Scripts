@@ -1,4 +1,5 @@
 #First and last index in array
+#Returns the indeces of the first and last occureance of a target value in an array
 def firstAndLast(arr,target):
     if target not in arr:
         return [-1,-1]

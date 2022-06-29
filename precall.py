@@ -4,7 +4,7 @@ from math import floor
 
 
 def simulate_game():
-    #This function simlulates a game where a player must predict the outcome of four cards being played to se ewhich are more likely
+    #This function simlulates a game where a player must predict the outcome of four cards being played to see which outcomes are more likely
     #There are four questions:
     #   Black or red? Is the card black or red
     #   High or low? Is the card higher or lower than the previous (getting the same value is a loss)
