@@ -58,6 +58,8 @@ class Solution:
         }
 
         
+
+        
         self.updateDicts(rowsDict,columnsDict,squaresDict)
 
 

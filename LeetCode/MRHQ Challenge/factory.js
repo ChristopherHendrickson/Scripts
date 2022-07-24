@@ -1,5 +1,5 @@
 //object factory
-const createObject = (objectAttributeOne,objectAttributeTwo) => {
+const objectFactory = (objectAttributeOne,objectAttributeTwo) => {
     return {
         _attributeOne : objectAttributeOne,
         _atrributeTwo : objectAttributeTwo,
@@ -16,15 +16,9 @@ const createObject = (objectAttributeOne,objectAttributeTwo) => {
         get attributeTwo() {
             return this._attributeTwo
         },
-        get allAttributes() {
+        allAttributes() {
            return [this._attributeOne,this._atrributeTwo] 
         }, 
     }
 }
 
-const newObject = createObject(1,2)
-const newObject2 = createObject('Jane','Doe')
-console.log(newObject.allAttributes)
-console.log(newObject2.attributeOne)
-newObject.attributeOne = 'string'
-console.log(newObject.allAttributes)
