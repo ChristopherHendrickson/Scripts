@@ -13,10 +13,11 @@ class Solution:
             '0':[],'1':[],'2':[],'3':[],'4':[],'5':[],'6':[],'7':[],'8':[],
         }
 
-        for i in range(9):
-            for ii in range(9):
-                key=str(3*(i//3)+ii//3)
-                newSquares[key].append(self.board[i][ii])
+        #Update the squares dictionary. The row and column is used to create keys '0' - '8'
+        for row in range(9):
+            for col in range(9):
+                key=str(3*(row//3)+col//3)
+                newSquares[key].append(self.board[row][col])
         for (key,value) in newSquares.items():
             squares[key]=value
     
