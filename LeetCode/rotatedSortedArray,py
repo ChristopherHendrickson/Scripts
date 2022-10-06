@@ -1,0 +1,48 @@
+class Solution:
+    def search(self, nums, target):
+        self.index = 0
+        self.solved = False
+        self.main(nums,target)
+        return self.index
+
+    def main(self,nums,target):
+        if not self.solved:
+            left = nums[0:len(nums)//2]
+            right = nums[len(nums)//2:len(nums)]
+            
+            print(left)
+            if left[0] <= left[-1]:
+                if left[0] <= target and left[-1] >= target:
+
+                    if len(left)>1:
+                        self.main(left,target)
+                    else:
+                        self.solved = True
+                else:
+                    self.index+=len(left)
+
+            elif len(left)>1:
+                self.main(left,target)
+
+
+            print(right)    
+            if right[0] <= right[-1]:
+                if right[0] <= target and right[-1] >= target:
+                    if len(right)>1:
+                        self.main(right,target)
+                    else:
+                        self.solved = True
+
+            elif len(right)>1:
+                self.main(right,target)
+
+
+
+
+
+
+input = [4,5,6,7,8,9,10,0,1,2,3]
+print(input)
+target = 1
+
+print(Solution().search(input,target))

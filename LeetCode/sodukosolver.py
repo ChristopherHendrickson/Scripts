@@ -13,10 +13,10 @@ class Solution:
             '0':[],'1':[],'2':[],'3':[],'4':[],'5':[],'6':[],'7':[],'8':[],
         }
 
-        #Update the squares dictionary. The row and column is used to create keys '0' - '8'
+        #Update the squares dictionary.
         for row in range(9):
             for col in range(9):
-                key=str(3*(row//3)+col//3)
+                key=str(3*(row//3)+col//3) #The row and column is used to create keys '0' - '8'
                 newSquares[key].append(self.board[row][col])
         for (key,value) in newSquares.items():
             squares[key]=value
@@ -35,6 +35,7 @@ class Solution:
         colKey = str(col)
         squareKey = str(3*(row//3)+col//3)
         value=str(value)
+
         return not (value in (rowsDict[rowKey]) or value in (columnsDict[colKey]) or value in (squaresDict[squareKey]))
         
 
@@ -107,6 +108,9 @@ class Solution:
                         self.updateDicts(rowsDict,columnsDict,squaresDict)
                     nodeTrying-=1 
                     row,col = self.getRowCol(nodeTrying)
+            if nodeTrying < 0:
+                print("Puzzle has no solution")
+                break
 
                 
                 
@@ -114,26 +118,18 @@ class Solution:
 
 
 
-board = [["5","3",".",".","7",".",".",".","."],
-        ["6",".",".","1","9","5",".",".","."],
-        [".","9","8",".",".",".",".","6","."],
-        ["8",".",".",".","6",".",".",".","3"],
-        ["4",".",".","8",".","3",".",".","1"],
-        ["7",".",".",".","2",".",".",".","6"],
-        [".","6",".",".",".",".","2","8","."],
-        [".",".",".","4","1","9",".",".","5"],
-        [".",".",".",".","8",".",".","7","9"]]
+board = [["9",".",".",".",".",".",".",".","."],
+        ["8",".","3",".","7",".",".","1","."],
+        [".",".",".",".",".","2","7",".","."],
+        ["3",".","4",".",".","5",".",".","8"],
+        [".","9",".",".","3",".",".",".","."],
+        [".","2",".",".",".",".",".","4","."],
+        [".","4",".",".",".",".",".",".","."],
+        [".",".",".","6",".",".",".",".","5"],
+        ["7",".","1",".","2",".",".","8","."]]
 
-answer = [["5","3","4","6","7","8","9","1","2"],
-        ["6","7","2","1","9","5","3","4","8"],
-        ["1","9","8","3","4","2","5","6","7"],
-        ["8","5","9","7","6","1","4","2","3"],
-        ["4","2","6","8","5","3","7","9","1"],
-        ["7","1","3","9","2","4","8","5","6"],
-        ["9","6","1","5","3","7","2","8","4"],
-        ["2","8","7","4","1","9","6","3","5"],
-        ["3","4","5","2","8","6","1","7","9"]]
+
 
 Solution().solveSudoku(board)
-print(board)
-print(board==answer)
+for row in range(9):
+    print(board[row])
